@@ -17,7 +17,7 @@ configure_file(config.h.in config.h)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(ip_filter main.cpp)
+add_executable(ip_filter main.cpp utilities.cpp)
 target_include_directories(ip_filter
     PRIVATE "${CMAKE_BINARY_DIR}"
 )
