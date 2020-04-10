@@ -21,3 +21,18 @@ add_executable(ip_filter main.cpp utilities.cpp)
 target_include_directories(ip_filter
     PRIVATE "${CMAKE_BINARY_DIR}"
 )
+
+add_executable(test_ipfilter tests/test_scan_ip4.cpp utilities.cpp)
+target_include_directories(test_ipfilter
+    PRIVATE 
+    "${CMAKE_BINARY_DIR}" "${CMAKE_HOME_DIRECTORY}"
+    "${GTEST_INCLUDE_DIR}"
+)
+target_link_libraries(test_ipfilter
+    ${GTEST_LIBRARIES}
+    ${GTEST_MAIN_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT}
+)
+
+enable_testing()
+add_test(test_utilities test_ipfilter)
