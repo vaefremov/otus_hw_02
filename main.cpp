@@ -49,7 +49,7 @@ int main(int argc, char** argv)
     std::vector<OTUS::IP4> ip_two_bytes;
     std::copy_if(ip_pool.begin(), ip_pool.end(), std::back_inserter(ip_two_bytes),
          [](const OTUS::IP4& item){return std::get<0>(item) == 46 && std::get<0>(item) == 70;});
-    for (auto v: ip_first_byte)
+    for (auto v: ip_two_bytes)
     {
         std::cout << OTUS::ip_to_string(v) << std::endl;
     }
