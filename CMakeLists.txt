@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.5)
 
 if("$ENV{TRAVIS_BUILD_NUMBER}" STREQUAL "")
   message("Warning: Could not find TRAVIS_BUILD_NUMBER environment variable")
