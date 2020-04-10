@@ -23,13 +23,8 @@ int main(int argc, char** argv)
     {
         usage();
     }
-    std::vector<OTUS::IP4> ip_pool;
-    for (std::string line; std::getline(std::cin, line);)
-    {
-        std::vector<std::string> v = OTUS::split(line, '\t');
-        ip_pool.push_back(OTUS::string_to_ip(v.at(0)));
-    }
-
+    
+    auto ip_pool = OTUS::scan_ip4(std::cin);
 
     auto original_data_end = ip_pool.end();
 

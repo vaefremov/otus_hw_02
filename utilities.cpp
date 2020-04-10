@@ -5,6 +5,17 @@
 #include <sstream>
 #include <exception>
 
+std::vector<OTUS::IP4> OTUS::scan_ip4(std::istream& in, unsigned int column)
+{
+    std::vector<OTUS::IP4> ip_pool;
+    for (std::string line; std::getline(in, line);)
+    {
+        std::vector<std::string> v = OTUS::split(line, '\t');
+        ip_pool.push_back(OTUS::string_to_ip(v.at(column)));
+    }
+    return ip_pool;
+}
+
 std::vector<std::string>  OTUS::split(const std::string &str, char d)
 {
     // std::vector<std::string> r;
