@@ -32,27 +32,17 @@ int main(int argc, char** argv)
 
 
     sort(ip_pool.begin(), ip_pool.end(), std::greater<OTUS::IP4>());
-
-    for (auto v: ip_pool)
-    {
-        std::cout << OTUS::ip_to_string(v) << std::endl;
-    }
+    OTUS::output_ips(std::cout, ip_pool);
 
     std::vector<OTUS::IP4> ip_first_byte;
     std::copy_if(ip_pool.begin(), ip_pool.end(), std::back_inserter(ip_first_byte),
-    [](const OTUS::IP4& item){return std::get<0>(item) == 1;});
-    for (auto v: ip_first_byte)
-    {
-        std::cout << OTUS::ip_to_string(v) << std::endl;
-    }
+        [](const OTUS::IP4& item){return std::get<0>(item) == 1;});
+    OTUS::output_ips(std::cout, ip_first_byte);
 
     std::vector<OTUS::IP4> ip_two_bytes;
     std::copy_if(ip_pool.begin(), ip_pool.end(), std::back_inserter(ip_two_bytes),
          [](const OTUS::IP4& item){return std::get<0>(item) == 46 && std::get<0>(item) == 70;});
-    for (auto v: ip_two_bytes)
-    {
-        std::cout << OTUS::ip_to_string(v) << std::endl;
-    }
+    OTUS::output_ips(std::cout, ip_two_bytes);
 
 
     std::vector<OTUS::IP4> ip_any_byte;
@@ -60,12 +50,7 @@ int main(int argc, char** argv)
         [](const OTUS::IP4& i){
             return std::get<0>(i) == 46 || std::get<1>(i) == 46 || std::get<2>(i) == 46 || std::get<3>(i) == 46;}
         );
-    for (auto v: ip_any_byte)
-    {
-        std::cout << OTUS::ip_to_string(v) << std::endl;
-    }
-
-    // std::copy(ip_any_byte.cbegin(), ip_any_byte.cend(), std::ostream_iterator<std::string>(std::cout, "\n"));
+    OTUS::output_ips(std::cout, ip_any_byte);
 
     return 0;
 }
