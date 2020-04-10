@@ -10,29 +10,23 @@ std::vector<OTUS::IP4> OTUS::scan_ip4(std::istream& in, unsigned int column)
     std::vector<OTUS::IP4> ip_pool;
     for (std::string line; std::getline(in, line);)
     {
-        std::vector<std::string> v = OTUS::split(line, '\t');
-        ip_pool.push_back(OTUS::string_to_ip(v.at(column)));
+        try 
+        {
+          std::vector<std::string> v = OTUS::split(line, '\t');
+          ip_pool.push_back(OTUS::string_to_ip(v.at(column)));
+        }
+        catch(std::exception& ex)
+        {
+          std::cerr << "Warning, bad input string: " << line << std::endl;
+          std::cerr << ex.what() << std::endl;
+          continue;
+        }
     }
     return ip_pool;
 }
 
 std::vector<std::string>  OTUS::split(const std::string &str, char d)
 {
-    // std::vector<std::string> r;
-
-    // decltype(str.find_first_of(d)) start = 0;
-    // auto stop = str.find_first_of(d);
-    // while(stop != std::string::npos)
-    // {
-    //     r.push_back(str.substr(start, stop - start));
-
-    //     start = stop + 1;
-    //     stop = str.find_first_of(d, start);
-    // }
-
-    // r.push_back(str.substr(start));
-
-    // return r;
   std::stringstream ss(str);
   std::string item;
   std::vector<std::string> elems;
@@ -50,10 +44,10 @@ OTUS::IP4 OTUS::string_to_ip(const std::string &str)
   while (std::getline(ss, item, '.')) {
     elems.push_back(std::stoi(item));
   }
-    if (elems.size() != 4)
-    {
-        throw std::invalid_argument("Invalid IP address");
-    }
+  if (elems.size() != 4)
+  {
+      throw std::invalid_argument("Incomplete IP address");
+  }
   return std::make_tuple(elems.at(0), elems.at(1), elems.at(2), elems.at(3));
 }
 
