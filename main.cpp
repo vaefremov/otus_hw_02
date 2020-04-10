@@ -31,26 +31,27 @@ int main(int argc, char** argv)
     }
 
 
-    sort(ip_pool.begin(), ip_pool.end(), std::greater<OTUS::IP4>());
+    auto end_ip_pool = ip_pool.end();
+
+    sort(ip_pool.begin(), end_ip_pool, std::greater<OTUS::IP4>());
     OTUS::output_ips(std::cout, ip_pool);
 
     std::vector<OTUS::IP4> ip_first_byte;
-    std::copy_if(ip_pool.begin(), ip_pool.end(), std::back_inserter(ip_first_byte),
+    std::copy_if(ip_pool.begin(), end_ip_pool, std::back_inserter(ip_pool),
         [](const OTUS::IP4& item){return std::get<0>(item) == 1;});
-    OTUS::output_ips(std::cout, ip_first_byte);
 
     std::vector<OTUS::IP4> ip_two_bytes;
-    std::copy_if(ip_pool.begin(), ip_pool.end(), std::back_inserter(ip_two_bytes),
+    std::copy_if(ip_pool.begin(), end_ip_pool, std::back_inserter(ip_pool),
          [](const OTUS::IP4& item){return std::get<0>(item) == 46 && std::get<0>(item) == 70;});
-    OTUS::output_ips(std::cout, ip_two_bytes);
 
 
     std::vector<OTUS::IP4> ip_any_byte;
-    std::copy_if(ip_pool.begin(), ip_pool.end(), std::back_inserter(ip_any_byte),
+    std::copy_if(ip_pool.begin(), end_ip_pool, std::back_inserter(ip_pool),
         [](const OTUS::IP4& i){
             return std::get<0>(i) == 46 || std::get<1>(i) == 46 || std::get<2>(i) == 46 || std::get<3>(i) == 46;}
         );
-    OTUS::output_ips(std::cout, ip_any_byte);
+
+    OTUS::output_ips(std::cout, ip_pool);
 
     return 0;
 }
