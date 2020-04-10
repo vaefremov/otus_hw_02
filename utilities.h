@@ -6,6 +6,7 @@
 #include <ostream>
 #include <istream>
 #include <algorithm>
+#include <iterator>
 
 namespace OTUS {
    typedef std::tuple<int, int, int, int> IP4;
