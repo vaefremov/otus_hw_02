@@ -1,0 +1,14 @@
+language: cpp
+before_script:
+- sudo apt install libgtest-dev -y
+script:
+- mkdir gtest
+- cd gtest
+- cmake /usr/src/gtest/
+- cmake --build .
+- sudo cp *.a /usr/lib/
+- cd ..
+- cmake .
+- cmake --build .
+- cmake --build . --target test
+- cmake --build . --target package
