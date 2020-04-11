@@ -1,6 +1,0 @@
-{
-    "cmake.configureOnOpen": true,
-    "C_Cpp.default.includePath": ["/Users/efremov/Tmp/GTest/gtest/include",
-        "${workspaceFolder}"
-    ]
-}
