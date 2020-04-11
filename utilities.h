@@ -15,13 +15,13 @@ namespace OTUS {
 
     std::vector<IP4> scan_ip4(std::istream& in, unsigned int column = 0);
 
-    IP4 string_to_ip(const std::string &str);
+    IP4 string_to_ip(const std::string& str);
 
     std::string ip_to_string(const IP4& ip);
 
     template <typename T> void output_ips(std::ostream& out, const std::vector<T>& ips)
     {
-        std::transform(ips.begin(), ips.end(), 
+        std::transform(ips.cbegin(), ips.cend(), 
             std::ostream_iterator<std::string>(out, "\n"),
             [](const T& ip){return ip_to_string(ip);}
         );
