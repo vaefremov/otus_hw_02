@@ -1,9 +1,17 @@
 #include "utilities.h"
+#include "utilities_impl.h"
+#include "config.h"
 
 #include <iostream>
 #include <sstream>
 #include <sstream>
 #include <exception>
+
+std::string OTUS::version_str() 
+{
+    return std::string(VERSION_NUMBER);
+}
+
 
 std::vector<OTUS::IP4> OTUS::scan_ip4(std::istream& in, unsigned int column)
 {

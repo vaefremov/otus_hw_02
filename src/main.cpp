@@ -7,12 +7,11 @@
 #include <iterator>
 #include <vector>
 
-#include "config.h"
 #include "utilities.h"
 
 static void usage()
 {
-        std::cout << "Version: " << VERSION_NUMBER << std::endl;
+        std::cout << "Version: " << OTUS::version_str() << std::endl;
         std::cout << "Usage: " << "ip_filter < input_file.txt" << std::endl;
         std::exit(1);
 }

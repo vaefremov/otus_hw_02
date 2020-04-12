@@ -12,23 +12,36 @@ project(ip_filter VERSION ${VERSION_NUMBER})
 find_package(GTest REQUIRED)
 find_package(Threads)
 
-configure_file(config.h.in config.h)
+configure_file(src/config.h.in config.h)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(ip_filter main.cpp utilities.cpp)
-target_include_directories(ip_filter
+add_library(utilities src/utilities.cpp)
+target_include_directories(utilities
     PRIVATE "${CMAKE_BINARY_DIR}"
+    "include"
 )
 
-add_executable(test_ipfilter tests/test_scan_ip4.cpp utilities.cpp)
+
+add_executable(ip_filter src/main.cpp )
+target_include_directories(ip_filter
+    PRIVATE 
+    "include"
+    
+)
+target_link_libraries(ip_filter PRIVATE utilities)
+
+add_executable(test_ipfilter tests/test_scan_ip4.cpp)
 target_include_directories(test_ipfilter
     PRIVATE 
+    "include"
+    "src"
     "${CMAKE_BINARY_DIR}" "${CMAKE_HOME_DIRECTORY}"
     "${GTEST_INCLUDE_DIR}"
 )
 target_link_libraries(test_ipfilter
+    utilities
     ${GTEST_LIBRARIES}
     ${GTEST_MAIN_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}

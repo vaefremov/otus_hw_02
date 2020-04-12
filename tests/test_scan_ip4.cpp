@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include "utilities.h"
+#include "utilities_impl.h"
 
 TEST(ScanIPTests, regular_case)
 {
