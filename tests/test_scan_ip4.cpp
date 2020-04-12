@@ -28,7 +28,16 @@ TEST(ScanIPTests, bad_string)
      std::istringstream str("113.162.145.qq	111	0\n157.39.22.224	5	6\n");
      std::vector<OTUS::IP4> ips;
      ASSERT_NO_THROW(ips = OTUS::scan_ip4(str));
-    //  std::vector<OTUS::IP4> ips = OTUS::scan_ip4(str);
+     EXPECT_EQ(1, ips.size());
+     OTUS::IP4 t1_exp(157, 39, 22, 224);
+     EXPECT_EQ(t1_exp, ips.at(0));
+}
+
+TEST(ScanIPTests, ip_elt_outofrange)
+{
+     std::istringstream str("113.1620.145.156	111	0\n157.39.22.224	5	6\n");
+     std::vector<OTUS::IP4> ips;
+     ASSERT_NO_THROW(ips = OTUS::scan_ip4(str));
      EXPECT_EQ(1, ips.size());
      OTUS::IP4 t1_exp(157, 39, 22, 224);
      EXPECT_EQ(t1_exp, ips.at(0));
