@@ -13,19 +13,24 @@ std::string OTUS::version_str()
 }
 
 
-std::vector<OTUS::IP4> OTUS::scan_ip4(std::istream& in, unsigned int column)
+std::vector<OTUS::IP4> OTUS::scan_ip4(std::istream& in, size_t column)
 {
     std::vector<OTUS::IP4> ip_pool;
-    for (std::string line; std::getline(in, line);)
+    int line_no = 1;
+    for (std::string line; std::getline(in, line); ++line_no)
     {
         try 
         {
-          std::vector<std::string> v = OTUS::split(line, '\t');
+          auto v = OTUS::split(line, '\t');
+          if (v.size() <= column)
+          {
+            throw std::runtime_error("Number of columns is less than the specified column number");
+          }
           ip_pool.push_back(OTUS::string_to_ip(v.at(column)));
         }
         catch(std::exception& ex)
         {
-          std::cerr << "Warning, bad input string: " << line << std::endl;
+          std::cerr << "Warning, bad input string " << line_no << "." << column << ": " << line << std::endl;
           std::cerr << ex.what() << std::endl;
           continue;
         }
@@ -50,7 +55,12 @@ OTUS::IP4 OTUS::string_to_ip(const std::string &str)
   std::string item;
   std::vector<int> elems;
   while (std::getline(ss, item, '.')) {
-    elems.push_back(std::stoi(item));
+    int tmp = std::stoi(item);
+    if(tmp < 0 || tmp > 255)
+    {
+      throw std::invalid_argument("IP address element out of range");
+    }
+    elems.push_back(tmp);
   }
   if (elems.size() != 4)
   {
@@ -62,9 +72,9 @@ OTUS::IP4 OTUS::string_to_ip(const std::string &str)
 std::string OTUS::ip_to_string(const IP4& ip)
 {
     std::ostringstream ss;
-    ss << std::get<0>(ip) << ".";
-    ss << std::get<1>(ip) << ".";
-    ss << std::get<2>(ip) << ".";
-    ss << std::get<3>(ip);
+    ss << static_cast<unsigned>(std::get<0>(ip)) << ".";
+    ss << static_cast<unsigned>(std::get<1>(ip)) << ".";
+    ss << static_cast<unsigned>(std::get<2>(ip)) << ".";
+    ss << static_cast<unsigned>(std::get<3>(ip));
     return ss.str();
 }

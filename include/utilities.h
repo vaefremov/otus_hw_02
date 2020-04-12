@@ -9,9 +9,9 @@
 #include <iterator>
 
 namespace OTUS {
-   typedef std::tuple<int, int, int, int> IP4;
+   typedef std::tuple<unsigned char, unsigned char, unsigned char, unsigned char> IP4;
    std::string version_str();
-   std::vector<IP4> scan_ip4(std::istream& in, unsigned int column = 0);
+   std::vector<IP4> scan_ip4(std::istream& in, size_t column = 0);
    std::string ip_to_string(const IP4& ip);
    template <typename T> void output_ips(std::ostream& out, const std::vector<T>& ips)
     {
