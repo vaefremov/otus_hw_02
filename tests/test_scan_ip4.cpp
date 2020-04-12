@@ -1,8 +1,16 @@
 #include <gtest/gtest.h>
 #include <iostream>
 #include <sstream>
+#include <regex>
 #include "utilities.h"
 #include "utilities_impl.h"
+
+TEST(Miscellanious, version_string)
+{
+    auto version = OTUS::version_str();
+    const std::regex version_regex("^\\d+\\.\\d+\\.\\d+$");
+    EXPECT_TRUE(std::regex_match(version, version_regex));
+}
 
 TEST(ScanIPTests, regular_case)
 {
