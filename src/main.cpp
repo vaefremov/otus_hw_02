@@ -30,20 +30,20 @@ int main(int argc, const char** argv)
     }
 
     auto ip_pool = OTUS::scan_ip4(std::cin);
-
+    
     sort(ip_pool.begin(), ip_pool.end(), std::greater<OTUS::IP4>());
 
-    auto original_data_end = ip_pool.cend();
+    auto original_sz = ip_pool.size();
 
-    std::copy_if(ip_pool.cbegin(), original_data_end, std::back_inserter(ip_pool),
+    std::copy_if(ip_pool.cbegin(), ip_pool.cbegin() + original_sz, std::back_inserter(ip_pool),
         [](const OTUS::IP4& item) { return std::get<0>(item) == 1; });
 
-    std::copy_if(ip_pool.cbegin(), original_data_end, std::back_inserter(ip_pool),
+    std::copy_if(ip_pool.cbegin(), ip_pool.cbegin() + original_sz, std::back_inserter(ip_pool),
         [](const OTUS::IP4& item) {
             return std::get<0>(item) == 46 && std::get<1>(item) == 70;
         });
 
-    std::copy_if(ip_pool.cbegin(), original_data_end, std::back_inserter(ip_pool),
+    std::copy_if(ip_pool.cbegin(), ip_pool.cbegin() + original_sz, std::back_inserter(ip_pool),
         [](const OTUS::IP4& i) {
             return std::get<0>(i) == 46 || std::get<1>(i) == 46 || std::get<2>(i) == 46 || std::get<3>(i) == 46;
         });
