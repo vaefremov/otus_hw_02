@@ -9,6 +9,12 @@
 
 #include "utilities.h"
 
+bool is_option_set(int argc, const char** argv, const std::string& opt)
+{
+    auto end = argv+argc;
+    return std::find(argv, end, opt) != end;
+}
+
 static void usage()
 {
     std::cout << "Version: " << OTUS::version_str() << std::endl;
@@ -17,9 +23,9 @@ static void usage()
     std::exit(1);
 }
 
-int main(int argc, char** argv)
+int main(int argc, const char** argv)
 {
-    if (argc > 1) {
+    if (is_option_set(argc, argv, "-h")) {
         usage();
     }
 
