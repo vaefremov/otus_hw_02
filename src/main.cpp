@@ -12,7 +12,7 @@
 bool is_option_set(int argc, const char** argv, const std::string& opt)
 {
     auto end = argv+argc;
-    return std::find(argv, end, opt) != end;
+    return std::find(std::next(argv), end, opt) != end;
 }
 
 static void usage()
