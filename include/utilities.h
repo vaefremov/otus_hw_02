@@ -9,7 +9,7 @@
 #include <vector>
 
 namespace OTUS {
-typedef std::tuple<unsigned char, unsigned char, unsigned char, unsigned char> IP4;
+using IP4 = std::tuple<unsigned char, unsigned char, unsigned char, unsigned char>;
 std::string version_str();
 std::vector<IP4> scan_ip4(std::istream& in, size_t column = 0);
 std::string ip_to_string(const IP4& ip);
