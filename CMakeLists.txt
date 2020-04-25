@@ -17,14 +17,17 @@ configure_file(src/config.h.in config.h)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_library(utilities src/utilities.cpp)
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+
+add_library(utilities src/utilities.cpp src/process_stl.cpp)
 target_include_directories(utilities
     PRIVATE "${CMAKE_BINARY_DIR}"
     "include"
 )
 
 
-add_executable(ip_filter src/main.cpp )
+add_executable(ip_filter src/main.cpp)
 target_include_directories(ip_filter
     PRIVATE 
     "include"
@@ -47,8 +50,26 @@ target_link_libraries(test_ipfilter
     ${CMAKE_THREAD_LIBS_INIT}
 )
 
+add_executable(test_process_stl tests/test_process_stl.cpp)
+target_include_directories(test_process_stl
+    PRIVATE 
+    "include"
+    "src"
+    "${CMAKE_BINARY_DIR}" "${CMAKE_HOME_DIRECTORY}"
+    "${GTEST_INCLUDE_DIR}"
+    "${CONAN_INCLUDE_DIRS}"
+)
+target_link_libraries(test_process_stl
+    utilities
+    ${GTEST_LIBRARIES}
+    ${GTEST_MAIN_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${CONAN_LIBS}
+)
+
 enable_testing()
-add_test(test_utilities test_ipfilter)
+add_test(test_utilities bin/test_ipfilter)
+add_test(test_process_stl bin/test_process_stl)
 
 install(TARGETS ip_filter RUNTIME DESTINATION bin)
 
