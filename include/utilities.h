@@ -23,4 +23,5 @@ void output_ips(std::ostream& out, const std::vector<T>& ips)
         [](const T& ip) { return ip_to_string(ip); });
 }
 VIP<IP4>& hw2_stl(VIP<IP4>& ips);
+VIP<IP4>& hw2_ranges(VIP<IP4>& ips);
 }

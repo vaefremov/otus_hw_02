@@ -20,7 +20,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-add_library(utilities src/utilities.cpp src/process_stl.cpp)
+add_library(utilities src/utilities.cpp src/process_stl.cpp src/process_ranges.cpp)
 target_include_directories(utilities
     PRIVATE "${CMAKE_BINARY_DIR}"
     "include"
@@ -67,9 +67,27 @@ target_link_libraries(test_process_stl
     ${CONAN_LIBS}
 )
 
+add_executable(test_process_ranges tests/test_process_ranges.cpp)
+target_include_directories(test_process_ranges
+    PRIVATE 
+    "include"
+    "src"
+    "${CMAKE_BINARY_DIR}" "${CMAKE_HOME_DIRECTORY}"
+    "${GTEST_INCLUDE_DIR}"
+    "${CONAN_INCLUDE_DIRS}"
+)
+target_link_libraries(test_process_ranges
+    utilities
+    ${GTEST_LIBRARIES}
+    ${GTEST_MAIN_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${CONAN_LIBS}
+)
+
 enable_testing()
 add_test(test_utilities bin/test_ipfilter)
 add_test(test_process_stl bin/test_process_stl)
+add_test(test_process_ranges bin/test_process_ranges)
 
 install(TARGETS ip_filter RUNTIME DESTINATION bin)
 
