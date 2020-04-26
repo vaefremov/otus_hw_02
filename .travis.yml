@@ -10,6 +10,7 @@ script:
 - cmake --build .
 - sudo cp *.a /usr/lib/
 - cd ..
+- sudo apt-get install python3-venv
 - python3 -m venv venv
 - . venv/bin/activate
 - pip install conan
