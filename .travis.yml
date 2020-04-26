@@ -10,7 +10,13 @@ script:
 - cmake --build .
 - sudo cp *.a /usr/lib/
 - cd ..
-- cmake .
+- python3 -m venv venv
+- . venv/bin/activate
+- pip install conan
+- mkdir build
+- cd build
+- conan install ..
+- cmake ..
 - cmake --build .
 - cmake --build . --target test
 - cmake --build . --target package
