@@ -15,7 +15,7 @@ script:
 - pip install conan
 - mkdir build
 - cd build
-- conan install ..
+- conan install  -s compiler.libcxx=libstdc++11 ..
 - cmake ..
 - cmake --build .
 - cmake --build . --target test
