@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.5)
 
 if("$ENV{TRAVIS_BUILD_NUMBER}" STREQUAL "")
   message("Warning: Could not find TRAVIS_BUILD_NUMBER environment variable")
-  set(VERSION_NUMBER "0.0.42")
+  set(VERSION_NUMBER "0.1.42")
 else()
-  set(VERSION_NUMBER "0.0.$ENV{TRAVIS_BUILD_NUMBER}")
+  set(VERSION_NUMBER "0.1.$ENV{TRAVIS_BUILD_NUMBER}")
 endif()
 
 project(ip_filter VERSION ${VERSION_NUMBER})
