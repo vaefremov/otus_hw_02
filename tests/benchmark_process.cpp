@@ -22,7 +22,7 @@ public:
 
 BENCHMARK_F(IPListFixture, Stl)(benchmark::State& state)
 {
-    while (state.KeepRunning())
+    for (auto _ : state)
     {
         auto ip_pool_wrk = ip_pool;
         OTUS::hw2_stl(ip_pool_wrk);
@@ -31,7 +31,7 @@ BENCHMARK_F(IPListFixture, Stl)(benchmark::State& state)
 
 BENCHMARK_F(IPListFixture, Ranges)(benchmark::State& state)
 {
-    while (state.KeepRunning())
+    for (auto _ : state)
     {
         auto ip_pool_wrk = ip_pool;
         OTUS::hw2_ranges(ip_pool_wrk);
