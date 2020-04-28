@@ -41,4 +41,24 @@ static void BM_Process_ranges(benchmark::State& state)
 }
 BENCHMARK(BM_Process_ranges);
 
+static void BM_copy(benchmark::State& state)
+{
+    std::ifstream in;
+    in.open("./tests/ip.tsv");
+    if(!in.good())
+    {
+        in.close();
+        in.open("../tests/ip.tsv");
+    }
+    auto ip_pool = OTUS::scan_ip4(in);
+
+    for(auto _: state)
+    {
+        auto ip_pool_wrk = ip_pool;
+    }
+}
+BENCHMARK(BM_copy);
+
+
+
 BENCHMARK_MAIN();
