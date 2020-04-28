@@ -17,6 +17,8 @@ configure_file(src/config.h.in config.h)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_subdirectory(benchmark)
+
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
@@ -82,6 +84,24 @@ target_link_libraries(test_process_ranges
     ${GTEST_MAIN_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${CONAN_LIBS}
+)
+
+add_executable(benchmark_process tests/benchmark_process.cpp)
+target_include_directories(benchmark_process
+    PRIVATE 
+    "include"
+    "src"
+    "${CMAKE_BINARY_DIR}" "${CMAKE_HOME_DIRECTORY}"
+    "${GTEST_INCLUDE_DIR}"
+    "${CONAN_INCLUDE_DIRS}"
+)
+target_link_libraries(benchmark_process
+    utilities
+    ${GTEST_LIBRARIES}
+    ${GTEST_MAIN_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${CONAN_LIBS}
+    benchmark::benchmark
 )
 
 enable_testing()

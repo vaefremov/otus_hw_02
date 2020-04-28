@@ -18,12 +18,15 @@ script:
 # - . venv/bin/activate
 - . ~/virtualenv/python3.6/bin/activate
 - pip install conan
+- git clone https://github.com/google/benchmark.git
+- git clone https://github.com/google/googletest.git benchmark/googletest
 - mkdir build
 - cd build
 - conan install  -s compiler.libcxx=libstdc++11 ..
 - cmake ..
 - cmake --build .
 - cmake --build . --target test
+- bin/benchmark_process
 - cmake --build . --target package
 deploy:
   provider: script
