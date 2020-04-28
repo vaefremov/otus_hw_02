@@ -3,8 +3,9 @@
 #include <fstream>
 #include "utilities.h"
 
-static void BM_Process_stl(benchmark::State& state)
-{
+class IPListFixture : public benchmark::Fixture {
+public:
+  void SetUp(const ::benchmark::State& state) {
     std::ifstream in;
     in.open("./tests/ip.tsv");
     if(!in.good())
@@ -12,34 +13,31 @@ static void BM_Process_stl(benchmark::State& state)
         in.close();
         in.open("../tests/ip.tsv");
     }
-    auto ip_pool = OTUS::scan_ip4(in);
+    ip_pool = OTUS::scan_ip4(in);
+    in.close();
+  }
 
-    for(auto _: state)
+  OTUS::VIP<OTUS::IP4> ip_pool;
+};
+
+BENCHMARK_F(IPListFixture, Stl)(benchmark::State& state)
+{
+    while (state.KeepRunning())
     {
         auto ip_pool_wrk = ip_pool;
         OTUS::hw2_stl(ip_pool_wrk);
     }
 }
-BENCHMARK(BM_Process_stl);
 
-static void BM_Process_ranges(benchmark::State& state)
+BENCHMARK_F(IPListFixture, Ranges)(benchmark::State& state)
 {
-    std::ifstream in;
-    in.open("./tests/ip.tsv");
-    if(!in.good())
-    {
-        in.close();
-        in.open("../tests/ip.tsv");
-    }
-    auto ip_pool = OTUS::scan_ip4(in);
-
-    for(auto _: state)
+    while (state.KeepRunning())
     {
         auto ip_pool_wrk = ip_pool;
         OTUS::hw2_ranges(ip_pool_wrk);
-    }
+    }    
 }
-BENCHMARK(BM_Process_ranges);
+
 
 static void BM_copy(benchmark::State& state)
 {
