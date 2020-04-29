@@ -13,17 +13,17 @@
 using namespace OTUS;
 using namespace ranges;
 
-static bool pred_1(const IP4& ip)
+static inline bool pred_1(const IP4& ip)
 {
   return std::get<0>(ip) == 1;
 }
 
-static bool pred_2(const IP4& ip)
+static inline bool pred_2(const IP4& ip)
 {
   return std::get<0>(ip) == 46 && std::get<1>(ip) == 70;
 }
 
-static bool pred_3(const IP4& ip)
+static inline bool pred_3(const IP4& ip)
 {
   return std::get<0>(ip) == 46 || std::get<1>(ip) == 46 || std::get<2>(ip) == 46 || std::get<3>(ip) == 46;
 }
