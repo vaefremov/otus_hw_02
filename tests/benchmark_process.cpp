@@ -20,7 +20,7 @@ public:
   OTUS::VIP<OTUS::IP4> ip_pool;
 };
 
-BENCHMARK_F(IPListFixture, Stl)(benchmark::State& state)
+BENCHMARK_DEFINE_F(IPListFixture, Stl)(benchmark::State& state)
 {
     while (state.KeepRunning())
     {
@@ -28,8 +28,9 @@ BENCHMARK_F(IPListFixture, Stl)(benchmark::State& state)
         OTUS::hw2_stl(ip_pool_wrk);
     }
 }
+BENCHMARK_REGISTER_F(IPListFixture, Stl)->Unit(benchmark::kMicrosecond);
 
-BENCHMARK_F(IPListFixture, Ranges)(benchmark::State& state)
+BENCHMARK_DEFINE_F(IPListFixture, Ranges)(benchmark::State& state)
 {
     while (state.KeepRunning())
     {
@@ -37,7 +38,7 @@ BENCHMARK_F(IPListFixture, Ranges)(benchmark::State& state)
         OTUS::hw2_ranges(ip_pool_wrk);
     }    
 }
-
+BENCHMARK_REGISTER_F(IPListFixture, Ranges)->Unit(benchmark::kMicrosecond);
 
 static void BM_copy(benchmark::State& state)
 {
