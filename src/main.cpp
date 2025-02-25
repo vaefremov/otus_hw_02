@@ -9,6 +9,8 @@
 
 #include "utilities.h"
 
+// Testing github
+
 bool is_option_set(int argc, const char** argv, const std::string& opt)
 {
     auto end = argv+argc;
